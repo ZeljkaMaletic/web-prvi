@@ -1,0 +1,43 @@
+﻿
+
+.form-control {
+    
+    display: block;
+    width: 100%;
+
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 2;
+    color: #ed78b0;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #adb5bd;
+  
+    appearance: none;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+.form-label {
+    
+    color: #049161;
+    font-size: medium;
+    font-family: serif;
+}
+
+
+.poseban-input {
+    background-color: burlywood;
+
+}
+
+.btn-novi:hover {
+
+    background-color: red;
+}
+
+btn-novi:active {
+
+    border: dashed 10px;
+    border-color: yellow;
+}
