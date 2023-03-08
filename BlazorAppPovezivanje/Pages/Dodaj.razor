@@ -1,0 +1,91 @@
+﻿@page "/dodaj"
+@using BlazorAppPovezivanje.Models
+@inject HttpClient client;
+@inject NavigationManager NavManager;
+
+
+<h3>Dodaj</h3>
+
+
+<form @onsubmit="DodajOsobu">
+
+    <div class="mb-3"> 
+
+        <label class="form-label" for="forname">Ime</label>
+        <input class="form-control" id="forname" @bind-value="osoba.Ime" type="text" name="forname"
+               placeholder="Upišite ime osobe" />
+    </div>
+
+    <div class="mb-3"> 
+
+
+        <label class="form-label" for="forsurname">Prezime</label>
+        <input class="form-control poseban-input" id="forsurname" @bind-value="osoba.Prezime" type="text" name="forsurname"
+               placeholder="Upišite prezime osobe" />
+    </div>
+
+
+        <div class="mb-3"> 
+
+        <label class="form-label" for="fortelephone">Telefon</label>
+        <input class="form-control" id="fortelephone" @bind-value="osoba.BrojTelefona" type="text" name="fortelephone"
+               placeholder="Upišite broj telefona" />
+    </div>
+
+    <div class="mb-3"> 
+
+        <label class="form-label" for="formobile">Mobitel</label>
+        <input class="form-control" id="formobile" @bind-value="osoba.BrojMobitela" type="text" name="formobile"
+               placeholder="Upišite broj mobitela" />
+    </div>
+
+        <div class="mb-3"> 
+
+        <label class="form-label" for="foradress">Adresa</label>
+        <input class="form-control" id="foradress" @bind-value="osoba.Adresa" type="text" name="foradress"
+               placeholder="Upišite adresu" />
+    </div>
+
+
+        <div class="mb-3"> 
+
+
+        <label class="form-label" for="forcity">Grad</label>
+        <input class="form-control" id="forcity" @bind-value="osoba.Grad" type="text" name="forcity"
+               placeholder="Upišite grad" />
+    </div>
+
+
+        <div class="mb-3"> 
+
+
+        <label class="form-label" for="forcountry">Drzava</label>
+        <input class="form-control" id="forccountry" @bind-value="osoba.Drzava" type="text" name="forcountry"
+               placeholder="Upišite državu" />
+    </div>
+
+    <button class="btn btn-primary btn-novi" type="submit">UrediOsobu</button>
+
+</form>
+
+
+@code {
+    Osoba osoba = new Osoba();
+
+    public async Task DodajOsobu()
+    {
+        var result = await client.PostAsJsonAsync<Osoba>("https://expertvjezbeapi.azurewebsites.net/api/Osobes", osoba);
+
+        if (result.IsSuccessStatusCode)
+        {
+
+            NavManager.NavigateTo("osobe");
+
+        }
+
+    }
+
+
+
+
+}

@@ -1,0 +1,106 @@
+﻿@page "/edit/{id:int}"
+@using BlazorAppPovezivanje.Models
+@inject HttpClient httpClient;
+@inject NavigationManager navManager;
+
+
+
+<h3>Edit</h3>
+
+
+
+
+<form @onsubmit="UrediOsobu">
+
+<p>
+    
+    <label for = "forname">Ime</label>
+        <input id="forname" @bind-value="osoba.Ime" type="text" name="forname"
+          placeholder="Upišite ime osobe"/>
+</p>
+
+<p>
+
+ <label for = "forsurname">Prezime</label>
+        <input id="forsurname" @bind-value="osoba.Prezime" type="text" name="forsurname"
+               placeholder="Upišite prezime osobe" />
+</p>
+
+
+<p>
+      <label for = "fortelephone">Telefon</label>
+        <input id="fortelephone" @bind-value="osoba.BrojTelefona" type="text" name="fortelephone"
+               placeholder="Upišite broj telefona" />
+</p>
+
+<p>
+        <label for = "formobile">Mobitel</label>
+        <input id="formobile" @bind-value="osoba.BrojMobitela" type="text" name="formobile"
+               placeholder="Upišite broj mobitela" />  
+</p>
+
+<p>
+        <label for = "foradress">Adresa</label>
+        <input id="foradress" @bind-value="osoba.Adresa" type="text" name="foradress"
+               placeholder="Upišite adresu" />    
+</p>
+
+
+<p>
+
+        <label for = "forcity">Grad</label>
+        <input id="forcity" @bind-value="osoba.Grad" type="text" name="forcity"
+               placeholder="Upišite grad" />
+</p>
+
+
+<p>
+   
+        <label for = "forcountry">Drzava</label>
+        <input id="forccountry" @bind-value="osoba.Drzava" type="text" name= "forcountry"
+               placeholder="Upišite državu" />
+</p>
+    <button type="submit" >UrediOsobu</button>
+
+</form>
+
+<!-- <button @onclick="Potvrdi">Potvrdi</button>-->
+
+
+
+@code {
+
+    [Parameter]
+    public int Id { get; set; }
+
+    public Osoba osoba = new Osoba();
+
+    protected override async Task OnInitializedAsync()
+    {
+        var result = await httpClient.GetAsync($"https://expertvjezbeapi.azurewebsites.net/api/Osobes/{Id}");
+        if (result.IsSuccessStatusCode)
+        {
+            osoba = await result.Content.ReadFromJsonAsync<Osoba>();
+
+
+        }
+    }
+
+    public async void UrediOsobu()
+    {
+
+        var result = await httpClient.PutAsJsonAsync($"https://expertvjezbeapi.azurewebsites.net/api/Osobes/{Id}", osoba);
+    
+    if (result.IsSuccessStatusCode)
+     {
+
+        navManager.NavigateTo("osobe");
+
+    }
+    }
+
+}
+
+
+
+ 
